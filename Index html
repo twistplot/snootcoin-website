@@ -47,6 +47,7 @@
 </head>
 <body>
 
+  <!-- Reference the image directly as it's in the same folder -->
   <img src="A_2D_digital_illustration_features_a_cartoon_Shiba.png" alt="SNOOT the Shiba">
 
   <h1>$SNOOT</h1>
