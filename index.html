@@ -6,88 +6,226 @@
   <meta name="description" content="SNOOT - The Anti-Boop Token. The rogue shiba that bites back against $BOOP.">
   <title>SNOOT – The Anti-Boop Token</title>
   <style>
+    @import url('https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;700;800&display=swap');
+    
+    :root {
+      --primary: #ff4d4d;
+      --primary-dark: #ff1a1a;
+      --bg: #0f0f0f;
+      --text: #fff;
+      --accent: #ff9e9e;
+    }
+    
     body {
-      background: #0f0f0f;
-      color: #fff;
-      font-family: 'Comic Sans MS', cursive, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Baloo 2', cursive, sans-serif;
       text-align: center;
       padding: 20px;
       margin: 0;
+      overflow-x: hidden;
     }
     .container {
       max-width: 800px;
       margin: 0 auto;
+      position: relative;
     }
-    img {
+    .snoot-image {
       max-width: 250px;
       border-radius: 30px;
-      box-shadow: 0 0 20px red;
+      box-shadow: 0 0 20px var(--primary);
       margin: 20px 0;
-      transition: transform 0.3s ease;
+      transition: all 0.3s ease;
+      cursor: pointer;
+      position: relative;
+      z-index: 1;
     }
-    img:hover {
-      transform: scale(1.05);
+    .snoot-image:hover {
+      transform: scale(1.05) rotate(-2deg);
+      box-shadow: 0 0 30px var(--primary);
+    }
+    .snoot-image:active {
+      transform: scale(0.95);
     }
     h1 {
       font-size: 3em;
-      color: #ff4d4d;
+      color: var(--primary);
       text-shadow: 2px 2px 4px #000;
       margin-bottom: 10px;
+      letter-spacing: 1px;
     }
     .tagline {
       font-size: 1.5em;
       margin-top: -10px;
-      color: #aaa;
+      color: var(--accent);
       font-style: italic;
+      margin-bottom: 30px;
     }
     .button {
       margin: 30px auto;
       display: inline-block;
       padding: 15px 30px;
-      background: #ff4d4d;
+      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
       color: white;
       font-size: 1.2em;
       text-decoration: none;
       border-radius: 20px;
       transition: all 0.3s ease;
       font-weight: bold;
-      border: 2px solid #ff1a1a;
+      border: none;
+      box-shadow: 0 4px 0 rgba(255, 26, 26, 0.5);
+      position: relative;
+      overflow: hidden;
     }
     .button:hover {
-      background: #ff1a1a;
       transform: translateY(-3px);
-      box-shadow: 0 5px 15px rgba(255, 26, 26, 0.4);
+      box-shadow: 0 7px 20px rgba(255, 26, 26, 0.4);
+    }
+    .button:active {
+      transform: translateY(1px);
+      box-shadow: 0 2px 0 rgba(255, 26, 26, 0.5);
+    }
+    .button::after {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: rgba(255,255,255,0.1);
+      transform: rotate(30deg);
+      transition: all 0.3s;
+    }
+    .button:hover::after {
+      left: 100%;
     }
     .section {
       margin: 40px 0;
-      padding: 20px;
+      padding: 25px;
       background: rgba(255, 77, 77, 0.1);
       border-radius: 15px;
-      border-left: 3px solid #ff4d4d;
+      border-left: 3px solid var(--primary);
+      position: relative;
+      transition: all 0.3s ease;
+    }
+    .section:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 25px rgba(255, 77, 77, 0.2);
     }
     h2 {
-      color: #ff4d4d;
+      color: var(--primary);
       font-size: 2em;
       margin-top: 0;
+      text-decoration: underline;
+      text-decoration-thickness: 3px;
+      text-underline-offset: 8px;
     }
     p {
       line-height: 1.6;
+      font-size: 1.1em;
     }
     .social-links {
       margin: 30px 0;
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      flex-wrap: wrap;
     }
     .social-links a {
-      color: #ff4d4d;
-      margin: 0 10px;
+      color: var(--text);
+      padding: 10px 20px;
       font-size: 1.2em;
       text-decoration: none;
+      background: rgba(255, 77, 77, 0.2);
+      border-radius: 50px;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      gap: 8px;
     }
     .social-links a:hover {
-      text-decoration: underline;
+      background: var(--primary);
+      transform: translateY(-3px);
+      box-shadow: 0 5px 15px rgba(255, 77, 77, 0.3);
+    }
+    .social-links a i {
+      font-size: 1.3em;
     }
     .phase {
       margin: 15px 0;
       font-weight: bold;
+      position: relative;
+      padding-left: 30px;
+      text-align: left;
+    }
+    .phase::before {
+      content: '🐶';
+      position: absolute;
+      left: 0;
+      top: -2px;
+    }
+    .contract-address {
+      background: rgba(255,255,255,0.1);
+      padding: 10px 15px;
+      border-radius: 10px;
+      font-family: monospace;
+      word-break: break-all;
+      margin: 15px auto;
+      max-width: 90%;
+      cursor: pointer;
+      transition: all 0.3s;
+      position: relative;
+    }
+    .contract-address:hover {
+      background: rgba(255,255,255,0.2);
+    }
+    .contract-address.copied::after {
+      content: 'Copied!';
+      position: absolute;
+      top: -30px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--primary);
+      padding: 5px 10px;
+      border-radius: 5px;
+      font-size: 0.8em;
+      font-family: sans-serif;
+      animation: fadeOut 1.5s forwards;
+    }
+    @keyframes fadeOut {
+      0% { opacity: 1; }
+      100% { opacity: 0; }
+    }
+    .paw-prints {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+      pointer-events: none;
+      z-index: 0;
+      opacity: 0.1;
+    }
+    .paw {
+      position: absolute;
+      font-size: 20px;
+      animation: float 15s linear infinite;
+    }
+    @keyframes float {
+      0% {
+        transform: translateY(0) rotate(0deg);
+        opacity: 0;
+      }
+      10% {
+        opacity: 1;
+      }
+      90% {
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(-500px) rotate(360deg);
+        opacity: 0;
+      }
     }
     @media (max-width: 600px) {
       h1 {
@@ -99,13 +237,21 @@
       .section {
         padding: 15px;
       }
+      .social-links {
+        flex-direction: column;
+        align-items: center;
+      }
     }
   </style>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
   <div class="container">
-    <!-- Using your PostImages link with fallback protection -->
+    <!-- Animated paw prints background -->
+    <div class="paw-prints" id="pawPrints"></div>
+    
     <img src="https://i.postimg.cc/vBfCx4Tt/A-2-D-digital-illustration-features-a-cartoon-Shiba.png" 
+         class="snoot-image"
          alt="SNOOT the Shiba Inu"
          onerror="this.src='https://i.imgur.com/3QZQZQZ.png'">
 
@@ -118,13 +264,16 @@
         The rogue shiba that bites back. Born to rebel against the gentle boops of $BOOP, $SNOOT is chaos in token form.<br/>
         Cute? Kinda. Dangerous? Definitely. This is the anti-boop movement you didn't know you needed.
       </p>
+      <p>
+        <strong>Warning:</strong> This shiba has sharp teeth. Boop at your own risk.
+      </p>
     </div>
 
     <div class="section">
       <h2>Tokenomics</h2>
       <p>
         <strong>Total Supply:</strong> 1,000,000,000 SNOOT<br/>
-        <strong>Contract:</strong> 0x... (coming soon)<br/>
+        <strong>Contract:</strong> <span class="contract-address" id="contractAddress">0xSN00T0000000000000000000000000000000000</span><br/>
         No taxes. No team tokens. No mercy.<br/>
         Fair launch. Pure degen energy.
       </p>
@@ -132,26 +281,96 @@
 
     <div class="section">
       <h2>Roadsnout</h2>
-      <div class="phase">Phase 1: Boop Rebellion Begins</div>
-      <div class="phase">Phase 2: Bump Bot Unleashed</div>
-      <div class="phase">Phase 3: Top Booper NFT Rewards</div>
-      <div class="phase">Phase 4: ??? – You decide</div>
+      <div class="phase">Phase 1: Boop Rebellion Begins (Snoot awakens)</div>
+      <div class="phase">Phase 2: Bite Back Protocol (Anti-boop measures)</div>
+      <div class="phase">Phase 3: Top Booper NFT Rewards (For the bravest)</div>
+      <div class="phase">Phase 4: SnootSwap (DEX with bite)</div>
+      <div class="phase">Phase 5: Total Boop Domination</div>
     </div>
 
-    <a href="https://pump.fun" class="button" target="_blank">Boop Me on Pump.fun</a>
+    <a href="https://pump.fun" class="button" target="_blank">
+      <i class="fas fa-paw"></i> Boop Me on Pump.fun
+    </a>
 
     <div class="social-links">
-      <a href="#" target="_blank">Twitter</a>
-      <a href="#" target="_blank">Telegram</a>
-      <a href="#" target="_blank">Dextools</a>
+      <a href="#" target="_blank"><i class="fab fa-twitter"></i> Twitter</a>
+      <a href="#" target="_blank"><i class="fab fa-telegram"></i> Telegram</a>
+      <a href="#" target="_blank"><i class="fas fa-chart-line"></i> Dextools</a>
+      <a href="#" target="_blank"><i class="fab fa-ethereum"></i> Etherscan</a>
     </div>
   </div>
 
-  <!-- Simple interaction script -->
   <script>
-    document.querySelector('img').addEventListener('click', function() {
-      this.style.transform = 'scale(0.95) rotate(5deg)';
-      setTimeout(() => this.style.transform = 'scale(1.05)', 200);
+    // Enhanced image interaction
+    const snootImage = document.querySelector('.snoot-image');
+    snootImage.addEventListener('click', function() {
+      this.style.transform = 'scale(0.9) rotate(10deg)';
+      setTimeout(() => {
+        this.style.transform = 'scale(1.05) rotate(-2deg)';
+        createBiteEffect();
+      }, 200);
+    });
+
+    // Create bite effect animation
+    function createBiteEffect() {
+      const bite = document.createElement('div');
+      bite.innerHTML = '🐶 CHOMP!';
+      bite.style.position = 'absolute';
+      bite.style.color = 'red';
+      bite.style.fontWeight = 'bold';
+      bite.style.fontSize = '24px';
+      bite.style.left = `${snootImage.offsetLeft + snootImage.width/2 - 30}px`;
+      bite.style.top = `${snootImage.offsetTop - 40}px`;
+      bite.style.animation = 'biteAnim 1s forwards';
+      document.body.appendChild(bite);
+      
+      setTimeout(() => {
+        bite.remove();
+      }, 1000);
+    }
+
+    // Add paw prints animation
+    function createPawPrints() {
+      const pawPrints = document.getElementById('pawPrints');
+      const pawCount = 20;
+      
+      for (let i = 0; i < pawCount; i++) {
+        const paw = document.createElement('div');
+        paw.className = 'paw';
+        paw.innerHTML = '🐾';
+        paw.style.left = `${Math.random() * 100}%`;
+        paw.style.bottom = '0';
+        paw.style.animationDelay = `${Math.random() * 15}s`;
+        paw.style.animationDuration = `${10 + Math.random() * 20}s`;
+        pawPrints.appendChild(paw);
+      }
+    }
+
+    // Contract address copy functionality
+    const contractAddress = document.getElementById('contractAddress');
+    contractAddress.addEventListener('click', function() {
+      navigator.clipboard.writeText(this.textContent).then(() => {
+        this.classList.add('copied');
+        setTimeout(() => {
+          this.classList.remove('copied');
+        }, 1500);
+      });
+    });
+
+    // Initialize animations
+    document.addEventListener('DOMContentLoaded', () => {
+      createPawPrints();
+      
+      // Add style for bite animation
+      const style = document.createElement('style');
+      style.textContent = `
+        @keyframes biteAnim {
+          0% { transform: scale(1); opacity: 1; }
+          50% { transform: scale(1.5); opacity: 0.8; }
+          100% { transform: scale(0.5); opacity: 0; }
+        }
+      `;
+      document.head.appendChild(style);
     });
   </script>
 </body>
