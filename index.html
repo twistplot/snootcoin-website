@@ -124,33 +124,6 @@
       line-height: 1.6;
       font-size: 1.1em;
     }
-    .social-links {
-      margin: 30px 0;
-      display: flex;
-      justify-content: center;
-      gap: 20px;
-      flex-wrap: wrap;
-    }
-    .social-links a {
-      color: var(--text);
-      padding: 10px 20px;
-      font-size: 1.2em;
-      text-decoration: none;
-      background: rgba(255, 77, 77, 0.2);
-      border-radius: 50px;
-      transition: all 0.3s ease;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-    .social-links a:hover {
-      background: var(--primary);
-      transform: translateY(-3px);
-      box-shadow: 0 5px 15px rgba(255, 77, 77, 0.3);
-    }
-    .social-links a i {
-      font-size: 1.3em;
-    }
     .phase {
       margin: 15px 0;
       font-weight: bold;
@@ -163,38 +136,6 @@
       position: absolute;
       left: 0;
       top: -2px;
-    }
-    .contract-address {
-      background: rgba(255,255,255,0.1);
-      padding: 10px 15px;
-      border-radius: 10px;
-      font-family: monospace;
-      word-break: break-all;
-      margin: 15px auto;
-      max-width: 90%;
-      cursor: pointer;
-      transition: all 0.3s;
-      position: relative;
-    }
-    .contract-address:hover {
-      background: rgba(255,255,255,0.2);
-    }
-    .contract-address.copied::after {
-      content: 'Copied!';
-      position: absolute;
-      top: -30px;
-      left: 50%;
-      transform: translateX(-50%);
-      background: var(--primary);
-      padding: 5px 10px;
-      border-radius: 5px;
-      font-size: 0.8em;
-      font-family: sans-serif;
-      animation: fadeOut 1.5s forwards;
-    }
-    @keyframes fadeOut {
-      0% { opacity: 1; }
-      100% { opacity: 0; }
     }
     .paw-prints {
       position: absolute;
@@ -227,6 +168,20 @@
         opacity: 0;
       }
     }
+    .bite-effect {
+      position: fixed;
+      color: red;
+      font-weight: bold;
+      font-size: 24px;
+      animation: biteAnim 1s forwards;
+      z-index: 100;
+      pointer-events: none;
+    }
+    @keyframes biteAnim {
+      0% { transform: translateY(0) scale(1); opacity: 1; }
+      50% { transform: translateY(-50px) scale(1.5); opacity: 0.8; }
+      100% { transform: translateY(-100px) scale(0.5); opacity: 0; }
+    }
     @media (max-width: 600px) {
       h1 {
         font-size: 2em;
@@ -236,10 +191,6 @@
       }
       .section {
         padding: 15px;
-      }
-      .social-links {
-        flex-direction: column;
-        align-items: center;
       }
     }
   </style>
@@ -273,7 +224,6 @@
       <h2>Tokenomics</h2>
       <p>
         <strong>Total Supply:</strong> 1,000,000,000 SNOOT<br/>
-        <strong>Contract:</strong> <span class="contract-address" id="contractAddress">0xSN00T0000000000000000000000000000000000</span><br/>
         No taxes. No team tokens. No mercy.<br/>
         Fair launch. Pure degen energy.
       </p>
@@ -291,13 +241,6 @@
     <a href="https://pump.fun" class="button" target="_blank">
       <i class="fas fa-paw"></i> Boop Me on Pump.fun
     </a>
-
-    <div class="social-links">
-      <a href="#" target="_blank"><i class="fab fa-twitter"></i> Twitter</a>
-      <a href="#" target="_blank"><i class="fab fa-telegram"></i> Telegram</a>
-      <a href="#" target="_blank"><i class="fas fa-chart-line"></i> Dextools</a>
-      <a href="#" target="_blank"><i class="fab fa-ethereum"></i> Etherscan</a>
-    </div>
   </div>
 
   <script>
@@ -307,21 +250,17 @@
       this.style.transform = 'scale(0.9) rotate(10deg)';
       setTimeout(() => {
         this.style.transform = 'scale(1.05) rotate(-2deg)';
-        createBiteEffect();
+        createBiteEffect(event);
       }, 200);
     });
 
     // Create bite effect animation
-    function createBiteEffect() {
+    function createBiteEffect(event) {
       const bite = document.createElement('div');
+      bite.className = 'bite-effect';
       bite.innerHTML = '🐶 CHOMP!';
-      bite.style.position = 'absolute';
-      bite.style.color = 'red';
-      bite.style.fontWeight = 'bold';
-      bite.style.fontSize = '24px';
-      bite.style.left = `${snootImage.offsetLeft + snootImage.width/2 - 30}px`;
-      bite.style.top = `${snootImage.offsetTop - 40}px`;
-      bite.style.animation = 'biteAnim 1s forwards';
+      bite.style.left = `${event.clientX - 30}px`;
+      bite.style.top = `${event.clientY - 40}px`;
       document.body.appendChild(bite);
       
       setTimeout(() => {
@@ -346,31 +285,9 @@
       }
     }
 
-    // Contract address copy functionality
-    const contractAddress = document.getElementById('contractAddress');
-    contractAddress.addEventListener('click', function() {
-      navigator.clipboard.writeText(this.textContent).then(() => {
-        this.classList.add('copied');
-        setTimeout(() => {
-          this.classList.remove('copied');
-        }, 1500);
-      });
-    });
-
     // Initialize animations
     document.addEventListener('DOMContentLoaded', () => {
       createPawPrints();
-      
-      // Add style for bite animation
-      const style = document.createElement('style');
-      style.textContent = `
-        @keyframes biteAnim {
-          0% { transform: scale(1); opacity: 1; }
-          50% { transform: scale(1.5); opacity: 0.8; }
-          100% { transform: scale(0.5); opacity: 0; }
-        }
-      `;
-      document.head.appendChild(style);
     });
   </script>
 </body>
