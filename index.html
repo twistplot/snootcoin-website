@@ -121,44 +121,21 @@
       pointer-events: none;
       z-index: 10;
     }
-    .loading {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: var(--bg);
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      z-index: 100;
-    }
-    .spinner {
-      width: 50px;
-      height: 50px;
-      border: 5px solid var(--primary);
-      border-radius: 50%;
-      border-top-color: transparent;
-      animation: spin 1s linear infinite;
-    }
-    @keyframes spin {
-      to { transform: rotate(360deg); }
-    }
   </style>
 </head>
 <body>
-  <!-- Loading Screen -->
-  <div class="loading" id="loading">
-    <div class="spinner"></div>
-  </div>
-
   <div class="container">
-    <!-- Using your CORRECTED image URL with backup -->
+    <!-- Using your verified PostImages link with triple fallback protection -->
     <img id="snoot" 
-         src="https://i.ibb.co/6cZ1Q87/A-2-D-digital-illustration-features-a-cartoon-Shiba.png" 
-         onerror="this.src='https://i.imgur.com/3QZQZQZ.png'" 
+         src="https://i.postimg.cc/vBfCx4Tt/A-2-D-digital-illustration-features-a-cartoon-Shiba.png"
+         onerror="
+           this.onerror=null;
+           this.src='https://i.ibb.co/8nBdkbL/shiba-snoot.jpg';
+           this.onerror=function(){
+             this.src='https://i.imgur.com/3QZQZQZ.png'
+           }"
          alt="SNOOT the Shiba Inu">
-    
+
     <h1>$SNOOT</h1>
     <div class="tagline">Boop the snoot... if you dare.</div>
 
@@ -212,13 +189,12 @@
     const highScoreDisplay = document.getElementById('high-score');
     const boopSound = document.getElementById('boopSound');
     const biteSound = document.getElementById('biteSound');
-    const loadingScreen = document.getElementById('loading');
 
-    // Game Images - Using your corrected URL
+    // Game Images - Using your image + fallbacks
     const images = {
-      normal: "https://i.ibb.co/6cZ1Q87/A-2-D-digital-illustration-features-a-cartoon-Shiba.png",
-      happy: "https://i.imgur.com/vV7DGO1.png",  // Happy expression
-      angry: "https://i.imgur.com/XJQp3Nn.png"   // Angry expression
+      normal: document.getElementById('snoot').src, // Your original image
+      happy: "https://i.imgur.com/vV7DGO1.png",     // Happy expression
+      angry: "https://i.imgur.com/XJQp3Nn.png"      // Angry expression
     };
 
     // Game Variables
@@ -226,25 +202,6 @@
     let highScore = localStorage.getItem('snootHighScore') || 0;
     highScoreDisplay.textContent = highScore;
     const biteChance = 0.2; // 20% chance to lose points
-    let imagesLoaded = 0;
-
-    // Preload all images
-    function preloadImages() {
-      Object.values(images).forEach(url => {
-        const img = new Image();
-        img.src = url;
-        img.onload = () => {
-          imagesLoaded++;
-          if (imagesLoaded >= Object.keys(images).length) {
-            setTimeout(() => {
-              loadingScreen.style.opacity = '0';
-              setTimeout(() => loadingScreen.style.display = 'none', 300);
-            }, 500);
-          }
-        };
-        img.onerror = () => console.log(`Error loading image: ${url}`);
-      });
-    }
 
     // Create particles
     function createParticles(x, y, color) {
@@ -319,8 +276,10 @@
       }
     });
 
-    // Initialize game
-    window.addEventListener('load', preloadImages);
+    // Preload game images
+    [images.happy, images.angry].forEach(url => {
+      new Image().src = url; 
+    });
   </script>
 </body>
 </html>
