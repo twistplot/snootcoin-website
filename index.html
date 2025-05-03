@@ -153,8 +153,11 @@
   </div>
 
   <div class="container">
-    <!-- Using YOUR EXACT IMAGE from ImgBB -->
-    <img id="snoot" src="https://i.ibb.co/8nBdkbL/shiba-snoot.jpg" alt="SNOOT the Shiba Inu">
+    <!-- Using your CORRECTED image URL with backup -->
+    <img id="snoot" 
+         src="https://i.ibb.co/6cZ1Q87/A-2-D-digital-illustration-features-a-cartoon-Shiba.png" 
+         onerror="this.src='https://i.imgur.com/3QZQZQZ.png'" 
+         alt="SNOOT the Shiba Inu">
     
     <h1>$SNOOT</h1>
     <div class="tagline">Boop the snoot... if you dare.</div>
@@ -211,9 +214,9 @@
     const biteSound = document.getElementById('biteSound');
     const loadingScreen = document.getElementById('loading');
 
-    // Game Images - Using your exact image for normal state
+    // Game Images - Using your corrected URL
     const images = {
-      normal: "https://i.ibb.co/8nBdkbL/shiba-snoot.jpg",
+      normal: "https://i.ibb.co/6cZ1Q87/A-2-D-digital-illustration-features-a-cartoon-Shiba.png",
       happy: "https://i.imgur.com/vV7DGO1.png",  // Happy expression
       angry: "https://i.imgur.com/XJQp3Nn.png"   // Angry expression
     };
