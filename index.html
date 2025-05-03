@@ -3,7 +3,6 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <meta name="description" content="SNOOT - The Anti-Boop Token. The rogue shiba that bites back against $BOOP.">
   <title>SNOOT – The Anti-Boop Token</title>
   <style>
     :root {
@@ -19,12 +18,10 @@
       padding: 20px;
       margin: 0;
       min-height: 100vh;
-      overflow-x: hidden;
     }
     .container {
       max-width: 800px;
       margin: 0 auto;
-      position: relative;
     }
     #snoot {
       width: 250px;
@@ -33,26 +30,16 @@
       border-radius: 30px;
       box-shadow: 0 0 20px var(--primary);
       margin: 20px 0;
-      transition: all 0.2s ease;
+      transition: all 0.3s;
       border: 3px solid var(--primary);
       cursor: pointer;
-      user-select: none;
-      -webkit-tap-highlight-color: transparent;
     }
     h1 {
-      font-size: clamp(2rem, 5vw, 3rem);
+      font-size: 3em;
       color: var(--primary);
       text-shadow: 2px 2px 4px #000;
-      margin-bottom: 10px;
-    }
-    .tagline {
-      font-size: clamp(1rem, 3vw, 1.5rem);
-      margin-top: -10px;
-      color: #aaa;
-      font-style: italic;
     }
     .button {
-      margin: 20px auto;
       display: inline-block;
       padding: 12px 25px;
       background: var(--primary);
@@ -60,225 +47,69 @@
       font-size: 1.1em;
       text-decoration: none;
       border-radius: 20px;
-      transition: all 0.3s ease;
-      font-weight: bold;
-      border: 2px solid var(--primary-dark);
+      margin: 20px 0;
+      transition: all 0.3s;
     }
     .button:hover {
       background: var(--primary-dark);
       transform: translateY(-3px);
-      box-shadow: 0 5px 15px rgba(255, 26, 26, 0.4);
     }
-    .section {
-      margin: 30px 0;
-      padding: 15px;
-      background: rgba(255, 77, 77, 0.1);
-      border-radius: 15px;
-      border-left: 3px solid var(--primary);
-    }
-    h2 {
-      color: var(--primary);
-      font-size: clamp(1.5rem, 4vw, 2rem);
-      margin-top: 0;
-    }
-    .game-container {
-      margin: 25px auto;
-      padding: 15px;
-      background: rgba(255, 77, 77, 0.2);
-      border-radius: 15px;
-      border: 2px dashed var(--primary);
-    }
-    .score-display {
-      font-size: 1.3em;
+    .score {
+      font-size: 1.5em;
       margin: 15px 0;
-      display: flex;
-      justify-content: center;
-      gap: 20px;
-      flex-wrap: wrap;
-    }
-    .score-box {
-      background: rgba(0,0,0,0.3);
-      padding: 8px 15px;
-      border-radius: 10px;
-      min-width: 100px;
     }
     .high-score {
       color: var(--primary);
       font-weight: bold;
     }
-    .bite-animation {
-      animation: bite 0.3s ease;
-    }
-    @keyframes bite {
-      0% { transform: scale(1); }
-      50% { transform: scale(0.9) rotate(10deg); }
-      100% { transform: scale(1); }
-    }
-    .particle {
-      position: absolute;
-      background: var(--primary);
-      border-radius: 50%;
-      pointer-events: none;
-      z-index: 10;
-    }
   </style>
 </head>
 <body>
   <div class="container">
-    <!-- Using your verified PostImages link with triple fallback protection -->
+    <!-- YOUR SINGLE IMAGE WITH PROTECTION -->
     <img id="snoot" 
-         src="https://i.postimg.cc/vBfCx4Tt/A-2-D-digital-illustration-features-a-cartoon-Shiba.png"
-         onerror="
-           this.onerror=null;
-           this.src='https://i.ibb.co/8nBdkbL/shiba-snoot.jpg';
-           this.onerror=function(){
-             this.src='https://i.imgur.com/3QZQZQZ.png'
-           }"
-         alt="SNOOT the Shiba Inu">
+         src="https://i.postimg.cc/vBfCx4Tt/A-2-D-digital-illustration-features-a-cartoon-Shiba.png" 
+         alt="SNOOT the Shiba Inu"
+         onerror="this.src='https://i.imgur.com/3QZQZQZ.png'">
 
     <h1>$SNOOT</h1>
-    <div class="tagline">Boop the snoot... if you dare.</div>
-
-    <!-- Game Section -->
-    <div class="game-container">
-      <h2>Boop The Snoot Game</h2>
-      <p>Tap the snoot to score! 20% chance he bites back!</p>
-      <div class="score-display">
-        <div class="score-box">Score: <span id="score">0</span></div>
-        <div class="score-box">High: <span id="high-score" class="high-score">0</span></div>
-      </div>
+    <p>Boop the snoot to earn points!</p>
+    
+    <div class="score">
+      Score: <span id="score">0</span> | 
+      High: <span id="high-score" class="high-score">0</span>
     </div>
 
-    <div class="section">
-      <h2>What is $SNOOT?</h2>
-      <p>
-        The rogue shiba that bites back. Born to rebel against the gentle boops of $BOOP, $SNOOT is chaos in token form.
-      </p>
-    </div>
-
-    <div class="section">
-      <h2>Tokenomics</h2>
-      <p>
-        <strong>Total Supply:</strong> 1,000,000,000 SNOOT<br>
-        No taxes. No team. No mercy.<br>
-        Fair launch. Pure degen.
-      </p>
-    </div>
-
-    <div class="section">
-      <h2>Roadsnout</h2>
-      <p>
-        Phase 1: Boop Rebellion Begins<br>
-        Phase 2: Bump Bot Unleashed<br>
-        Phase 3: Top Booper NFT Rewards<br>
-        Phase 4: ??? – You decide
-      </p>
-    </div>
-
-    <a href="https://pump.fun" class="button" target="_blank">Buy $SNOOT on Pump.fun</a>
+    <a href="https://pump.fun" class="button" target="_blank">Buy on Pump.fun</a>
   </div>
-
-  <!-- Audio Elements -->
-  <audio id="boopSound" src="https://assets.mixkit.co/sfx/preview/mixkit-arcade-game-jump-coin-216.mp3" preload="auto"></audio>
-  <audio id="biteSound" src="https://assets.mixkit.co/sfx/preview/mixkit-unfair-game-penalty-458.mp3" preload="auto"></audio>
 
   <script>
     // Game Elements
     const snoot = document.getElementById('snoot');
     const scoreDisplay = document.getElementById('score');
     const highScoreDisplay = document.getElementById('high-score');
-    const boopSound = document.getElementById('boopSound');
-    const biteSound = document.getElementById('biteSound');
-
-    // Game Images - Using your image + fallbacks
-    const images = {
-      normal: document.getElementById('snoot').src, // Your original image
-      happy: "https://i.imgur.com/vV7DGO1.png",     // Happy expression
-      angry: "https://i.imgur.com/XJQp3Nn.png"      // Angry expression
-    };
 
     // Game Variables
     let score = 0;
     let highScore = localStorage.getItem('snootHighScore') || 0;
     highScoreDisplay.textContent = highScore;
-    const biteChance = 0.2; // 20% chance to lose points
 
-    // Create particles
-    function createParticles(x, y, color) {
-      for (let i = 0; i < 10; i++) {
-        const particle = document.createElement('div');
-        particle.classList.add('particle');
-        document.body.appendChild(particle);
-        
-        const size = Math.random() * 10 + 5;
-        particle.style.width = `${size}px`;
-        particle.style.height = `${size}px`;
-        particle.style.backgroundColor = color;
-        
-        const destinationX = x + (Math.random() - 0.5) * 100;
-        const destinationY = y + (Math.random() - 0.5) * 100;
-        
-        particle.style.left = `${x}px`;
-        particle.style.top = `${y}px`;
-        
-        const animation = particle.animate([
-          { transform: `translate(0, 0)`, opacity: 1 },
-          { transform: `translate(${destinationX - x}px, ${destinationY - y}px)`, opacity: 0 }
-        ], {
-          duration: Math.random() * 1000 + 500,
-          easing: 'cubic-bezier(0, .9, .57, 1)'
-        });
-        
-        animation.onfinish = () => particle.remove();
-      }
-    }
-
-    // Handle Snoot Click
-    snoot.addEventListener('click', (e) => {
-      // Get click position for particles
-      const rect = snoot.getBoundingClientRect();
-      const x = e.clientX;
-      const y = e.clientY;
+    // Click Handler
+    snoot.addEventListener('click', () => {
+      // Animation
+      snoot.style.transform = 'scale(0.9)';
+      setTimeout(() => snoot.style.transform = 'scale(1)', 200);
       
-      // Play animation
-      snoot.classList.add('bite-animation');
-      setTimeout(() => snoot.classList.remove('bite-animation'), 300);
-      
-      // Random event
-      if (Math.random() < biteChance) {
-        // Bitten! Lose points
-        score = Math.max(0, score - 5);
-        createParticles(x, y, '#ff0000');
-        biteSound.currentTime = 0;
-        biteSound.play();
-        
-        // Angry face
-        snoot.src = images.angry;
-        setTimeout(() => snoot.src = images.normal, 500);
-      } else {
-        // Successful boop
-        score += 10;
-        createParticles(x, y, '#ffcc00');
-        boopSound.currentTime = 0;
-        boopSound.play();
-        
-        // Happy face
-        snoot.src = images.happy;
-        setTimeout(() => snoot.src = images.normal, 500);
-      }
-      
-      // Update scores
+      // Score logic
+      score += 10;
       scoreDisplay.textContent = score;
+      
+      // Update high score
       if (score > highScore) {
         highScore = score;
         highScoreDisplay.textContent = highScore;
         localStorage.setItem('snootHighScore', highScore);
       }
-    });
-
-    // Preload game images
-    [images.happy, images.angry].forEach(url => {
-      new Image().src = url; 
     });
   </script>
 </body>
